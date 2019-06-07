@@ -18,6 +18,8 @@ ADD manager-context.xml /usr/local/tomcat/webapps/manager/META-INF/context.xml
 #copy web.xml to the manager webapp to increase the file upload size for deploy
 ADD manager-web.xml /usr/local/tomcat/webapps/manager/WEB-INF/web.xml
 
-RUN mv /usr/local/tomcat/webapps/manager /opt/slashoapp
+RUN mkdir /opt/slashoapp && mv /usr/local/tomcat/webapps/manager /opt/slashoapp/manager
+
+WORKDIR /opt/slashoapp
 
 ENTRYPOINT ["/usr/local/tomcat/bin/catalina.sh", "run"]
