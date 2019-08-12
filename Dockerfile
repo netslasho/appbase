@@ -7,6 +7,13 @@
 #use the ubuntu distro
 FROM tomcat:alpine
 
+#Environment to enable the startup debugging
+ENV net.slasho.app.debug.startup n
+
+ENV net.slasho.app.args ""
+
+ENV net.slasho.app.opts "$CATALINA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8500,server=y,suspend=\$net.slasho.debug.startup \$net.slasho.app.args"
+
 #copy the tomcat-users.xml so that we can have access to the manager-ui with tomcat/s3cret
 ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml 
 
@@ -22,4 +29,5 @@ RUN mkdir /opt/slashoapp && mv /usr/local/tomcat/webapps/manager /opt/slashoapp/
 
 WORKDIR /opt/slashoapp
 
-ENTRYPOINT ["/usr/local/tomcat/bin/catalina.sh", "run"]
+#ENTRYPOINT ["/usr/local/tomcat/bin/catalina.sh", "run"]
+CMD CATALINA_OPTS=$net.slasho.app.opts /usr/local/tomcat/bin/catalina.sh run
