@@ -12,7 +12,7 @@ ENV net_slasho_app_debug_startup n
 
 ENV net_slasho_app_args ""
 
-ENV net_slasho_app_opts "$CATALINA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8500,server=y,suspend=\$net_slasho_debug_startup \$net_slasho_app_args"
+ENV net_slasho_app_opts "$CATALINA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8500,server=y,suspend=\$net_slasho_app_debug_startup \$net_slasho_app_args"
 
 #copy the tomcat-users.xml so that we can have access to the manager-ui with tomcat/s3cret
 ADD tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml 
